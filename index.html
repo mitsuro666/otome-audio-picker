@@ -39,7 +39,7 @@ const TIMING=[
  ['history','历史价格',20,'是否接近史低、是否常年打折'],
  ['edition','版本与优惠',10,'中日版本、券、其他组合优惠']
 ];
-const DEFAULT={version:1,profile:{usual:15,exception:20,cheap:10,minMinutes:40,maxDiscount:2,budget:106.5,limit:15},entries:[],active:null,step:0,tab:'home'};
+const DEFAULT={version:1,profile:{usual:15,exception:20,cheap:10,minMinutes:40,maxDiscount:2,budget:106.5,limit:15,batchPrice:0},entries:[],active:null,step:0,tab:'home'};
 let db=load();
 const DL_WORKER='https://dlsite-rj-import.shuiyingsheng.workers.dev/';
 let rjFetch={id:'',state:'idle',message:''};
@@ -153,7 +153,7 @@ function n(v){const x=Number(v);return Number.isFinite(x)?x:0;}
 function yuan(v){return '¥'+n(v).toFixed(2).replace(/\.00$/,'');}
 function newId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
 function entry(){return db.entries.find(x=>x.id===db.active);}
-function newEntry(){const it={id:newId(),created:Date.now(),title:'',rj:'',cv:'',price:'',original:'',first:'unsure',artNote:'',exception:false,minutes:'',storyNote:'',expected:'',red:'unknown',redNote:'',trackNote:'',bkIncluded:'unknown',dailyCheck:'unknown',intimateCheck:'unknown',rod:'unknown',audioNote:'',rating:{},timing:{},desire:'unknown',notes:'',status:'draft',selected:false};db.entries.unshift(it);db.active=it.id;db.step=0;db.tab='wizard';save();render();}
+function newEntry(){const it={id:newId(),created:Date.now(),title:'',rj:'',cv:'',price:db.profile.batchPrice>0?String(db.profile.batchPrice):'',original:'',first:'unsure',artNote:'',exception:false,minutes:'',storyNote:'',expected:'',red:'unknown',redNote:'',trackNote:'',bkIncluded:'unknown',dailyCheck:'unknown',intimateCheck:'unknown',rod:'unknown',audioNote:'',rating:{},timing:{},desire:'unknown',notes:'',status:'draft',selected:false};db.entries.unshift(it);db.active=it.id;db.step=0;db.tab='wizard';save();render();}
 function removeEntry(id){if(!confirm('确定删除这部作品及其评分吗？'))return;db.entries=db.entries.filter(x=>x.id!==id);if(db.active===id)db.active=null;save();render();}
 function setTab(tab){db.tab=tab;save();render();}
 function edit(id){db.active=id;db.tab='wizard';db.step=0;save();render();}
@@ -206,13 +206,15 @@ function step0(it){const ratio=priceRatio(it),loading=rjFetch.id===it.id&&rjFetc
 rjPreview(it)+
 '<div class="twocol">'+textField(it,'作品名称','title','自动填入，可修改')+
 textField(it,'CV','cv','自动填入，可修改')+
-textField(it,'实际付款价（人民币元）','price','例如：7.1',{type:'number'})+
+textField(it,'实际付款价（人民币元）','price','同价活动可在设置中预填',{type:'number'})+
 textField(it,'对比原价（人民币元，可选）','original','填写同币种原价计算折数',{type:'number'})+'</div>'+
 '<div class="hint" style="margin-bottom:17px">人民币折扣：<b>'+(ratio===null?'未填写同币种原价与现价':ratio.toFixed(2)+' 折')+'</b> · 常规预算 '+yuan(db.profile.usual)+' · 特别喜欢可到 '+yuan(db.profile.exception)+'</div>'+
 boolChoice(it,'first','第一眼感觉如何？',[['yes','有兴趣，想点开'],['unsure','一般，先看看'],['no','没什么兴趣']])+
 textField(it,'第一眼吸引点（可选）','artNote','BK、人设关键词、标题印象……',{textarea:true})+
 '<label class="switchline"><input type="checkbox" data-checkfield="exception" '+(it.exception?'checked':'')+'> 这部是特别喜欢的CV／题材，可按特殊预算上限考虑</label>';}
 function step1(it){return '<h2>02 · 详情页排雷</h2><p class="muted tiny">先看简介、时长、轨道列表和个人雷点。明确不接受的内容直接结束评估。</p>'+
+(it.synopsis?'<div class="hint"><b>DLsite作品简介参考</b><div style="white-space:pre-line;margin-top:7px">'+e(it.synopsis)+'</div></div>':'')+
+(it.genres?'<p class="tiny muted">官方标签：'+e(it.genres)+'</p>':'')+
 '<div class="twocol">'+textField(it,'作品总时长（分钟）','minutes','最低接受 '+db.profile.minMinutes+' 分钟',{type:'number'})+
 boolChoice(it,'red','是否命中绝对雷点？',[['no','没有'],['unknown','待确认'],['yes','有，不能接受']])+'</div>'+
 textField(it,'简介与人设判断','storyNote','剧情概况、角色气质、喜欢或在意的设定……',{textarea:true})+
@@ -269,7 +271,7 @@ wrap(hero('购物车二筛 · 名额有限，心动优先','这次预算 '+yuan(
 '<div class="card" style="margin-top:16px"><h2>本次拟购清单</h2>'+(selected.length?'<ol class="summary-list">'+selected.map(it=>'<li>'+e(it.title||it.rj||'未命名')+' · '+(it.price!==''?yuan(it.price):'未填价格')+'</li>').join('')+'</ol><button class="btn small" style="margin-top:14px" data-action="copyList">复制购买清单</button>':'<p class="muted tiny">点击「本次买」后，作品就会出现在这里。</p>')+'</div>');}
 function settings(){const p=db.profile;wrap(hero('偏好设置与数据备份','这是你自己的购买标准。之后换预算、换促销活动，都可以在这里修改。','⚙️')+
 '<div class="grid"><section class="card"><h2>购买习惯</h2>'+
-[['usual','常规单部价格上限（元）'],['exception','喜欢的作品破例上限（元）'],['cheap','觉得很划算的价格（元）'],['minMinutes','最低时长（分钟）'],['maxDiscount','偏好的最高折数（2 = 二折）'],['budget','本次总预算（元）'],['limit','本次最多购买（部）']].map(x=>'<div class="field"><label>'+x[1]+'</label><input type="number" min="0" step="any" data-profile="'+x[0]+'" value="'+e(p[x[0]])+'"></div>').join('')+
+[['usual','常规单部价格上限（元）'],['exception','喜欢的作品破例上限（元）'],['cheap','觉得很划算的价格（元）'],['batchPrice','同价活动统一实付价（元，填0则逐部填写）'],['minMinutes','最低时长（分钟）'],['maxDiscount','偏好的最高折数（2 = 二折）'],['budget','本次总预算（元）'],['limit','本次最多购买（部）']].map(x=>'<div class="field"><label>'+x[1]+'</label><input type="number" min="0" step="any" data-profile="'+x[0]+'" value="'+e(p[x[0]])+'"></div>').join('')+
 '<p class="tiny muted">这些值会影响提醒和判断，不会自动购买、删除或强制清空已选作品。</p></section>'+
 '<section class="card"><h2>数据只在你的浏览器里</h2><p class="muted tiny">无需登录，也没有外部数据服务。浏览器清缓存、换设备前，请导出备份文件。</p><div class="row"><button class="btn primary" data-action="export">↓ 导出 JSON</button><button class="btn" data-action="import">↑ 导入备份</button><input class="hide" id="importFile" type="file" accept=".json,application/json"></div><div class="line"></div><h3>评分规则 V1.0</h3><p class="tiny muted">喜好分：从50分起算，七个维度按 -2 至 +2 加减。时机分独立计算，已有时机信息时参考总分=喜好×85%+时机×15%。一票否决始终优先。</p><div class="alert">当前模型为第一次测试。评分阈值和权重未来可根据实际购买体验调整。</div><div class="line"></div><button class="btn danger small" data-action="clearAll">清空所有作品和记录</button></section></div>');}
 function render(){if(db.tab==='wizard')wizard();else if(db.tab==='library')library();else if(db.tab==='cart')cart();else if(db.tab==='settings')settings();else home();}
