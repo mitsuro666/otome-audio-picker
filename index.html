@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f9f4ef">
+<title>抓抓挑选器 · Otome Audio Picker</title>
+<style>
+:root{--bg:#fbf7f2;--paper:#fffdfb;--ink:#382d3c;--sub:#8d7d8a;--line:#eadfe5;--pink:#e56f92;--pale:#fde9ef;--violet:#7765a2;--mint:#4f9283;--gold:#c78d43;--shadow:0 16px 42px rgba(81,48,68,.09)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 8% -10%,#ffeced,transparent 34%),radial-gradient(circle at 96% 8%,#eee9ff,transparent 29%),var(--bg);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);line-height:1.6}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.45}a{color:var(--violet)}.shell{max-width:1120px;margin:auto;padding:24px 20px 96px}.head{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:10px 0 24px}.brand{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;border-radius:18px;background:linear-gradient(135deg,#f0a2b6,#a99bca);display:grid;place-items:center;color:white;font-size:26px;box-shadow:0 7px 17px #dc94af50}.brand strong{font-size:23px;letter-spacing:.06em}.brand small{display:block;color:var(--sub);font-size:12px;letter-spacing:.15em}.pill{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:40px;padding:6px 12px;background:white;color:var(--sub);font-size:12px;white-space:nowrap}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:22px}.tabs button{border:1px solid transparent;background:transparent;color:#746778;padding:11px 17px;border-radius:16px;font-weight:650}.tabs button.on{background:white;border-color:var(--line);box-shadow:0 4px 14px #533b4c0c;color:var(--violet)}.hero{background:linear-gradient(110deg,#fffefc,#fff0f4);border:1px solid #f5e0e9;border-radius:25px;box-shadow:var(--shadow);padding:27px 30px;display:flex;align-items:center;justify-content:space-between;gap:25px;margin-bottom:22px}.eyebrow{font-weight:750;font-size:11px;color:var(--pink);letter-spacing:.19em;text-transform:uppercase}.hero h1{font-size:27px;line-height:1.32;margin:7px 0 9px}.hero p{margin:0;color:#766b75;max-width:620px}.heroIcon{font-size:65px;line-height:1}.btn{border:1px solid var(--line);border-radius:14px;padding:11px 16px;background:white;color:var(--ink);font-weight:700;transition:.15s}.btn:hover{transform:translateY(-1px)}.btn.primary{background:var(--pink);color:white;border-color:var(--pink)}.btn.purple{background:var(--violet);color:white;border-color:var(--violet)}.btn.ghost{background:transparent}.btn.small{font-size:12px;padding:7px 10px;border-radius:10px}.btn.danger{color:#a94d63;border-color:#edc4d1}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.spread{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}.stat{background:var(--paper);border:1px solid var(--line);border-radius:19px;padding:15px 18px}.stat strong{font-size:25px;display:block;font-weight:750;line-height:1.4}.stat span{color:var(--sub);font-size:12px}.card{border-radius:23px;background:var(--paper);border:1px solid var(--line);padding:23px;box-shadow:0 5px 20px #7a4e6610;margin-bottom:17px}.card h2{font-size:18px;margin:0 0 13px}.card h3{font-size:15px;margin:0 0 10px}.muted{color:var(--sub)}.tiny{font-size:12px}.line{height:1px;background:var(--line);margin:18px 0}.empty{padding:55px 25px;text-align:center}.empty .emoji{font-size:49px}.empty h3{font-size:20px;margin:7px}.empty p{color:var(--sub)}.list{display:grid;gap:10px}.item{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:15px;background:#fff;border:1px solid var(--line);border-radius:17px}.item-main{min-width:0;flex:1}.item-title{font-weight:800;overflow-wrap:anywhere}.item-meta{font-size:12px;color:var(--sub);margin-top:3px}.chip{padding:3px 9px;display:inline-flex;align-items:center;gap:3px;font-size:11px;background:#f7f2f5;color:#7b6d7c;border-radius:20px}.chip.good{background:#e8f7ee;color:#2d8067}.chip.warn{background:#fff3e3;color:#a5742d}.chip.bad{background:#ffe9ef;color:#bd5571}.chip.purple{background:#f0ecfa;color:#7461a0}.score{font-weight:800;font-size:21px;color:var(--violet)}.stepper{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:19px 0}.step{border-radius:14px;background:#f7f0f4;padding:9px 6px;text-align:center;font-size:12px;color:#9d8d9c}.step.active{background:var(--violet);color:white;font-weight:750}.step.done{background:#e7f3ed;color:var(--mint)}.wizard{display:grid;grid-template-columns:minmax(0,1fr) 275px;gap:18px}.guide{position:sticky;top:14px;align-self:start}.hint{background:#f6f1fa;border-radius:16px;padding:15px;color:#74688a;font-size:13px}.field{margin-bottom:17px}.field label,.field .label{display:block;font-size:13px;font-weight:760;margin-bottom:7px}.field .help{color:var(--sub);font-size:12px;margin-top:5px}.field input,.field textarea,.field select{width:100%;border:1px solid #e7dce4;background:#fff;border-radius:12px;padding:11px 13px;color:var(--ink);outline:none;min-height:44px}.field textarea{min-height:96px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:#bd9ad0;box-shadow:0 0 0 3px #ebe1f4}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:13px}.choices{display:flex;gap:7px;flex-wrap:wrap}.choice{border:1px solid #eadde5;background:white;border-radius:12px;padding:9px 12px;font-size:12px;color:#746978}.choice.selected{background:#fce9ef;border-color:#e899b0;color:#ad476b;font-weight:750}.choice.positive.selected{background:#e6f5ec;border-color:#75b9a1;color:#287661}.choice.negative.selected{background:#ffebee;border-color:#e3a1a8;color:#b34860}.meter{height:9px;background:#f2eaf0;border-radius:30px;overflow:hidden;margin:9px 0}.meter span{display:block;height:100%;background:linear-gradient(90deg,#b8a7d9,#e985a3);border-radius:inherit;transition:width .2s}.metric{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px dashed #f0e6eb}.metric:last-child{border:0}.metric .m-title{font-weight:750;font-size:14px}.metric .m-weight{color:var(--sub);font-size:11px}.rating{display:flex;gap:5px}.rating button{width:38px;height:36px;border:1px solid #eadfe5;background:white;border-radius:9px;font-weight:700;color:#817380}.rating button.chosen{background:var(--violet);border-color:var(--violet);color:white}.rating button.neg.chosen{background:#c86b82;border-color:#c86b82}.rating button.pos.chosen{background:var(--mint);border-color:var(--mint)}.resultBox{background:linear-gradient(130deg,#f6eefa,#fff0f2);padding:20px;border-radius:20px}.resultNum{font-size:37px;font-weight:800;line-height:1.1;color:var(--violet)}.actions{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-top:20px}.alert{border-radius:12px;padding:10px 13px;background:#fff4df;color:#92612d;font-size:13px;margin:10px 0}.alert.error{background:#fdebf0;color:#a34665}.alert.ok{background:#eaf5ee;color:#347965}.barbox{background:#faf5f9;border-radius:17px;padding:15px}.smallcaps{letter-spacing:.12em;text-transform:uppercase;font-size:10px;color:var(--sub);font-weight:800}.budgetnum{font-size:25px;font-weight:800}.summary-list{padding:0;margin:0;list-style:none}.summary-list li{padding:7px 0;border-bottom:1px dashed var(--line);font-size:13px}.summary-list li:last-child{border:0}.mark{font-size:12px;color:var(--sub)}.stickyBottom{display:none}.footer{padding:24px 0;color:#a18d98;font-size:12px;text-align:center}.collapse{margin-top:12px}.tag{display:inline-block;background:#f6f0f3;border-radius:7px;font-size:11px;color:#8d7388;padding:4px 7px}.switchline{display:flex;align-items:center;gap:9px;font-size:13px}.switchline input{accent-color:var(--pink);width:18px;height:18px}.strong{font-weight:750}.hide{display:none!important}@media(max-width:800px){.wizard{grid-template-columns:1fr}.guide{position:static;order:2}.stats{grid-template-columns:repeat(2,1fr)}.heroIcon{display:none}}@media(max-width:580px){.shell{padding:13px 13px 108px}.brand strong{font-size:20px}.head{padding:10px 2px 14px}.pill{font-size:10px}.logo{width:44px;height:44px;border-radius:14px}.tabs{gap:2px;background:#fffafc;border:1px solid var(--line);border-radius:17px;padding:4px;display:grid;grid-template-columns:repeat(4,1fr)}.tabs button{padding:8px 3px;font-size:12px;border-radius:13px}.hero{padding:21px;display:block;border-radius:21px}.hero h1{font-size:22px}.hero p{font-size:13px}.card{padding:17px;border-radius:20px}.twocol{grid-template-columns:1fr}.item{align-items:flex-start}.item .row{justify-content:flex-end}.metric{display:block}.rating{margin-top:10px}.rating button{flex:1}.step{font-size:10px;padding:9px 2px}.stickyBottom{display:block;position:fixed;bottom:0;left:0;right:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#fffefaed;backdrop-filter:blur(16px);border-top:1px solid var(--line);z-index:10}.stickyBottom .row>*{flex:1}.actions{display:none}}
+</style>
+</head>
+<body><div class="shell" id="app"></div><div class="stickyBottom" id="mobileActions"></div>
+<script>
+(function(){
+'use strict';
+const KEY='otome-audio-picker-v1';
+const METRICS=[
+ ['art','BK与标题',5,'第一印象、视觉和标题吸引力'],
+ ['cv','CV吸引力',10,'对声优本人的期待（与本作表现分开）'],
+ ['story','剧情与人设',20,'题材、角色和关系设定'],
+ ['daily','日常试听',25,'声线、自然度、演技和角色感'],
+ ['intimate','亲密试听',25,'亲密部分的表现、节奏与自然度'],
+ ['sound','音频制作',10,'收音、SE、空间感和沉浸度'],
+ ['structure','内容结构',5,'时长、音轨与期待内容占比']
+];
+const TIMING=[
+ ['cost','实付价格',40,'当前价格与自己的心理价位'],
+ ['sale','折扣力度',30,'是否属于值得入手的折扣'],
+ ['history','历史价格',20,'是否接近史低、是否常年打折'],
+ ['edition','版本与优惠',10,'中日版本、券、其他组合优惠']
+];
+const DEFAULT={version:1,profile:{usual:15,exception:20,cheap:10,minMinutes:40,maxDiscount:2,budget:106.5,limit:15},entries:[],active:null,step:0,tab:'home'};
+let db=load();
+function load(){try{const raw=JSON.parse(localStorage.getItem(KEY)||'null');if(raw&&Array.isArray(raw.entries)&&raw.profile)return Object.assign({},DEFAULT,raw,{profile:Object.assign({},DEFAULT.profile,raw.profile)});}catch(e){}return JSON.parse(JSON.stringify(DEFAULT));}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(db));document.querySelectorAll('[data-save-state]').forEach(x=>x.textContent='✓ 已自动保存');}catch(e){alert('浏览器本地存储失败，请尽快导出备份。');}}
+function e(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function n(v){const x=Number(v);return Number.isFinite(x)?x:0;}
+function yuan(v){return '¥'+n(v).toFixed(2).replace(/\.00$/,'');}
+function newId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function entry(){return db.entries.find(x=>x.id===db.active);}
+function newEntry(){const it={id:newId(),created:Date.now(),title:'',rj:'',cv:'',price:'',original:'',first:'unsure',artNote:'',exception:false,minutes:'',storyNote:'',expected:'',red:'unknown',redNote:'',trackNote:'',bkIncluded:'unknown',dailyCheck:'unknown',intimateCheck:'unknown',rod:'unknown',audioNote:'',rating:{},timing:{},desire:'unknown',notes:'',status:'draft',selected:false};db.entries.unshift(it);db.active=it.id;db.step=0;db.tab='wizard';save();render();}
+function removeEntry(id){if(!confirm('确定删除这部作品及其评分吗？'))return;db.entries=db.entries.filter(x=>x.id!==id);if(db.active===id)db.active=null;save();render();}
+function setTab(tab){db.tab=tab;save();render();}
+function edit(id){db.active=id;db.tab='wizard';db.step=0;save();render();}
+function scoreOf(it,dimension){let sum=0,covered=0;const metrics=dimension==='timing'?TIMING:METRICS;const vals=dimension==='timing'?it.timing:it.rating;metrics.forEach(m=>{if(vals[m[0]]!==undefined&&vals[m[0]]!==null&&vals[m[0]]!==''){sum+=m[2]*Number(vals[m[0]])/4;covered+=m[2];}});return {value:covered?Math.max(0,Math.min(100,Math.round(50+sum*100/covered))):null,covered:covered,complete:covered===100};}
+function priceRatio(it){let p=n(it.price),o=n(it.original);return p>0&&o>0?Math.round(p/o*1000)/100:null;}
+function flags(it){let veto=[],warning=[];const p=n(it.price),mins=n(it.minutes),pr=db.profile;
+if(it.red==='yes')veto.push('剧情包含个人绝对雷点');
+if(it.rod==='yes')veto.push('试听发现明显棒读');
+if(it.dailyCheck==='no')veto.push('日常试听不喜欢');
+if(it.intimateCheck==='no')veto.push('亲密试听不喜欢');
+if(it.minutes!==''&&mins<pr.minMinutes)veto.push('时长低于'+pr.minMinutes+'分钟');
+if(it.price!==''&&p>pr.exception)warning.push('价格超过特殊预算上限 '+yuan(pr.exception));
+else if(it.price!==''&&p>pr.usual&&!it.exception)warning.push('超出常规预算，尚未确认是否破例');
+if(it.red==='unknown')warning.push('剧情雷点尚未排查');
+if(it.dailyCheck==='unknown'||it.intimateCheck==='unknown')warning.push('日常或亲密试听尚未完成');
+if(it.rod==='unknown')warning.push('棒读情况尚未确认');
+if(it.minutes==='')warning.push('作品时长尚未确认');
+if(it.price==='')warning.push('实际售价尚未填写');
+if(it.first==='no')warning.push('第一眼兴趣不足');
+const ratio=priceRatio(it);if(ratio!==null&&ratio>pr.maxDiscount)warning.push('折扣未达到偏好的'+pr.maxDiscount+'折');
+return {veto:veto,warning:warning,blocked:veto.length>0};}
+function suggestion(it){const f=flags(it),s=scoreOf(it,'rating'),t=scoreOf(it,'timing');if(f.blocked)return {label:'一票否决',klass:'bad',value:null,reason:f.veto.join('；')};if(f.warning.some(x=>x.includes('价格超过特殊')))return {label:'超过预算上限',klass:'warn',value:null,reason:'建议暂缓'};
+if(it.red==='unknown'||it.dailyCheck==='unknown'||it.intimateCheck==='unknown'||it.rod==='unknown'||it.minutes==='')return {label:'待检查',klass:'warn',value:null,reason:'先完成详情与试听'};
+if(!s.complete)return {label:'待评分',klass:'warn',value:null,reason:'七个维度全部评分后生成建议'};
+const total=t.covered?Math.round(s.value*.85+t.value*.15):s.value;
+if(s.value<70||total<65)return {label:'建议候补',klass:'warn',value:total,reason:'匹配度或综合分未达购买推荐线'};
+if(total>=85)return {label:'强烈推荐',klass:'good',value:total,reason:'高匹配候选'};
+if(total>=75)return {label:'推荐购买',klass:'good',value:total,reason:'可进入购物车二筛'};
+return {label:'可以考虑',klass:'purple',value:total,reason:'建议与同价位候选比较'};
+}
+function header(){return '<header class="head"><div class="brand"><div class="logo">♫</div><div><strong>抓抓挑选器</strong><small>OTOME AUDIO PICKER · V1.0</small></div></div><span class="pill" data-save-state>✓ 本地自动保存</span></header>'+
+'<nav class="tabs">'+[['home','✦ 工作台'],['library','♡ 候选库'],['cart','🛒 二筛清单'],['settings','⚙ 设置']].map(a=>'<button data-tab="'+a[0]+'" class="'+(db.tab===a[0]||db.tab==='wizard'&&a[0]==='home'?'on':'')+'">'+a[1]+'</button>').join('')+'</nav>';}
+function hero(title,subtitle,icon){return '<section class="hero"><div><div class="eyebrow">PICK WHAT YOU WILL REALLY LOVE</div><h1>'+title+'</h1><p>'+subtitle+'</p></div><div class="heroIcon">'+icon+'</div></section>';}
+function wrap(x){document.getElementById('app').innerHTML=header()+x+'<footer class="footer">偏好由你决定，分数只做参考。所有记录保存在当前浏览器，重要数据请定期导出备份。</footer>';document.getElementById('mobileActions').innerHTML='';}
+function stats(){let selected=db.entries.filter(x=>x.selected);return '<div class="stats"><div class="stat"><strong>'+db.entries.length+'</strong><span>收录作品</span></div><div class="stat"><strong>'+db.entries.filter(x=>x.status==='candidate').length+'</strong><span>加入候选</span></div><div class="stat"><strong>'+selected.length+' / '+db.profile.limit+'</strong><span>本次选购名额</span></div><div class="stat"><strong>'+yuan(selected.reduce((x,y)=>x+n(y.price),0))+'</strong><span>已选预算 / '+yuan(db.profile.budget)+'</span></div></div>';}
+function home(){let list=db.entries.slice(0,5);wrap(hero('把喜欢留给真正心动的作品。','从第一眼、剧情排雷到试听评分，跟着步骤走；最后再把候选作品放进购物车，按预算作决定。','🎧')+stats()+
+'<div class="spread" style="margin-bottom:16px"><h2 style="margin:0">最近筛选</h2><button class="btn primary" data-action="new">＋ 添加一部作品</button></div>'+
+(list.length?'<div class="list">'+list.map(itemRow).join('')+'</div>':'<div class="card empty"><div class="emoji">🎼</div><h3>从第一部心动作品开始</h3><p>不用记复杂流程。填好封面信息后，系统会一步步提示你该检查什么。</p><button class="btn purple" data-action="new">开始第一次筛选 →</button></div>')+
+'<div class="card" style="margin-top:20px"><h2>你的选购路线</h2><div class="grid">'+[['01','第一印象','价格、BK、CV、标题'],['02','详情排雷','剧情、雷点、时长、轨道'],['03','试听核查','日常、亲密、演技、音效'],['04','量化评分','喜好匹配、购买时机'],['05','购物车决赛','预算、名额、手动取舍']].map(x=>'<div class="hint"><div class="eyebrow">'+x[0]+'</div><b>'+x[1]+'</b><div class="tiny muted">'+x[2]+'</div></div>').join('')+'</div></div>');}
+function itemRow(it){let sg=suggestion(it),s=scoreOf(it,'rating');return '<div class="item"><div class="item-main"><div class="item-title">'+e(it.title||'未命名作品')+' <span class="chip '+sg.klass+'">'+sg.label+'</span></div><div class="item-meta">'+e(it.rj||'未填写RJ号')+' · '+e(it.cv||'CV待填')+' · '+(it.price!==''?yuan(it.price):'价格待填')+' · '+(it.minutes!==''?e(it.minutes)+'分钟':'时长待填')+'</div><div class="item-meta">喜好分：'+(s.complete?s.value+'/100':'已评 '+s.covered+'%')+' · '+(it.status==='candidate'?'已入候选':it.status==='hold'?'已暂存':it.status==='skip'?'已跳过':'筛选中')+'</div></div><div class="row"><button class="btn small" data-action="edit" data-id="'+it.id+'">继续评估</button></div></div>';}
+function library(){let cards=db.entries.slice().sort((a,b)=>b.created-a.created);wrap(hero('所有作品，一处管理','筛选到哪一步都能继续；暂缓的作品也会留在库里，等下次促销再看。','📚')+
+'<div class="spread" style="margin-bottom:16px"><span class="muted">'+cards.length+' 部作品</span><button class="btn primary" data-action="new">＋ 新增</button></div>'+
+(cards.length?'<div class="list">'+cards.map(it=>'<div>'+itemRow(it)+'<div class="row" style="justify-content:flex-end;margin:4px 4px 12px"><button class="btn small ghost" data-action="status" data-id="'+it.id+'" data-value="candidate">♡ 候选</button><button class="btn small ghost" data-action="status" data-id="'+it.id+'" data-value="hold">稍后再看</button><button class="btn small ghost" data-action="status" data-id="'+it.id+'" data-value="skip">跳过</button><button class="btn small danger" data-action="delete" data-id="'+it.id+'">删除</button></div></div>').join('')+'</div>':'<div class="card empty"><p>暂时还没有作品记录。</p><button class="btn primary" data-action="new">开始筛选</button></div>'));}
+
+function textField(it,label,key,placeholder,opts){opts=opts||{};return '<div class="field"><label for="f_'+key+'">'+label+'</label>'+(opts.textarea?'<textarea id="f_'+key+'" data-field="'+key+'" placeholder="'+e(placeholder||'')+'">'+e(it[key])+'</textarea>':'<input id="f_'+key+'" data-field="'+key+'" type="'+(opts.type||'text')+'" '+(opts.type==='number'?'min="0" step="any"':'')+' placeholder="'+e(placeholder||'')+'" value="'+e(it[key])+'">')+(opts.help?'<div class="help">'+opts.help+'</div>':'')+'</div>';}
+function boolChoice(it,key,label,values,help){return '<div class="field"><div class="label">'+label+'</div><div class="choices">'+values.map(v=>'<button class="choice '+(it[key]===v[0]?'selected ':'')+(v[0]==='yes'?'negative':v[0]==='no'?'positive':'')+'" data-choice="'+key+'" data-value="'+v[0]+'">'+v[1]+'</button>').join('')+'</div>'+(help?'<div class="help">'+help+'</div>':'')+'</div>';}
+function step0(it){const ratio=priceRatio(it);return '<h2>01 · 第一眼，值不值得点进去？</h2><p class="muted tiny">照着平时刷打折页的习惯来。BK、CV、标题有吸引力，就继续看详情。</p><div class="twocol">'+textField(it,'作品名称','title','例如：雨夜与你')+textField(it,'RJ号（可选）','rj','RJ123456')+textField(it,'CV','cv','声优名称')+textField(it,'当前价格（元）','price','例如：7.1',{type:'number'})+textField(it,'原价（元，可选）','original','填入后自动计算折数',{type:'number'})+'</div>'+
+'<div class="hint" style="margin-bottom:17px">当前折扣：<b>'+(ratio===null?'待填写原价与现价':ratio.toFixed(2)+' 折')+'</b> · 常规预算 '+yuan(db.profile.usual)+' · 特别喜欢可到 '+yuan(db.profile.exception)+'</div>'+
+boolChoice(it,'first','第一眼感觉如何？',[['yes','有兴趣，想点开'],['unsure','一般，先看看'],['no','没什么兴趣']])+
+textField(it,'第一眼吸引点（可选）','artNote','BK、人设关键词、标题印象……',{textarea:true})+
+'<label class="switchline"><input type="checkbox" data-checkfield="exception" '+(it.exception?'checked':'')+'> 这部是特别喜欢的CV／题材，可按特殊预算上限考虑</label>';}
+function step1(it){return '<h2>02 · 详情页排雷</h2><p class="muted tiny">先看简介、时长、轨道列表和个人雷点。明确不接受的内容直接结束评估。</p>'+
+'<div class="twocol">'+textField(it,'作品总时长（分钟）','minutes','最低接受 '+db.profile.minMinutes+' 分钟',{type:'number'})+
+boolChoice(it,'red','是否命中绝对雷点？',[['no','没有'],['unknown','待确认'],['yes','有，不能接受']])+'</div>'+
+textField(it,'简介与人设判断','storyNote','剧情概况、角色气质、喜欢或在意的设定……',{textarea:true})+
+textField(it,'这部最想听到什么？','expected','例如：追妻桥段、日常调情、某种性格反差……',{textarea:true})+
+textField(it,'雷点与注意事项','redNote','具体剧情或标签，方便回头看……')+
+textField(it,'音轨结构观察','trackNote','是否有希望的场景？某部分占比是否过低？',{textarea:true})+
+boolChoice(it,'bkIncluded','是否含BK／相关特典？',[['yes','有'],['no','没有'],['unknown','未确认']],'供个人参考，不默认影响评分。');}
+function step2(it){return '<h2>03 · 试听才是最重要的一关</h2><p class="muted tiny">分别检查日常说话与亲密部分。两者任何一个明确不喜欢，都可以一票否决。</p>'+
+boolChoice(it,'dailyCheck','🗣️ 日常声音与演技',[['yes','喜欢，通过'],['no','不喜欢，淘汰'],['unknown','还没听']])+
+boolChoice(it,'intimateCheck','♡ 亲密部分的表现',[['yes','喜欢，通过'],['no','不喜欢，淘汰'],['unknown','还没听']])+
+boolChoice(it,'rod','是否存在无法接受的棒读？',[['no','没有'],['yes','有，淘汰'],['unknown','未判断']])+
+textField(it,'听感记录与音效质量','audioNote','声线、节奏、SE、录音环境、最期待的片段是否有覆盖……',{textarea:true})+
+'<div class="hint">如果试听没有包含最期待的剧情，可以在上一步标注。未知内容保留为待验证，不自动扣分。</div>';}
+const SCALE=[[-2,'很不喜欢'],[-1,'略不喜欢'],[0,'普通'],[1,'喜欢'],[2,'非常喜欢']];
+function ratingGroup(it,arr,store){return arr.map(m=>{const raw=it[store][m[0]],has=raw!==undefined;return '<div class="metric"><div><div class="m-title">'+m[1]+' <span class="m-weight">权重 '+m[2]+'%</span></div><div class="m-weight">'+m[3]+'</div></div><div class="rating">'+SCALE.map(v=>'<button title="'+v[1]+'" aria-label="'+m[1]+' '+v[1]+'" data-rate="'+store+'" data-metric="'+m[0]+'" data-value="'+v[0]+'" class="'+(has&&Number(raw)===v[0]?'chosen '+(v[0]<0?'neg':v[0]>0?'pos':''):'')+'">'+(v[0]>0?'+':'')+v[0]+'</button>').join('')+'</div></div>';}).join('');}
+function scorePanel(it){const s=scoreOf(it,'rating'),t=scoreOf(it,'timing');return '<div class="resultBox"><div class="spread"><div><div class="smallcaps">PREFERENCE MATCH</div><div class="resultNum">'+(s.complete?s.value:'—')+'<span class="tiny"> / 100</span></div><div class="tiny muted">'+(s.complete?'喜好评分已完成':'已填写 '+s.covered+'% 权重 · 填完7项生成正式分数')+'</div></div><div><div class="smallcaps">BUYING TIMING</div><div class="resultNum" style="font-size:26px">'+(t.covered?t.value:'—')+'<span class="tiny"> / 100</span></div><div class="tiny muted">已评价 '+t.covered+'% 权重</div></div></div><div class="meter"><span style="width:'+s.covered+'%"></span></div></div>';}
+function step3(it){return '<h2>04 · 喜欢加分，不喜欢减分</h2><p class="muted tiny">每项选 -2 到 +2；0 代表普通。由50分起算，根据各项权重加减分。明确雷点仍优先于总分。</p>'+scorePanel(it)+
+'<div style="margin-top:16px">'+ratingGroup(it,METRICS,'rating')+'</div>'+
+'<div class="line"></div><h3>购买时机（可选评分）</h3><p class="tiny muted">独立评估价格与优惠；不了解的项目可以留空。若填写，参考总分按喜好85%＋时机15%合成，并标注时机信息覆盖度。</p>'+
+ratingGroup(it,TIMING,'timing')+'<div class="hint">打分口径：-2 非常不满意 · -1 有点遗憾 · 0 普通 · +1 喜欢 · +2 非常喜欢。历史价格未知时就留空，不必猜测。</div>';}
+function reasons(it){return METRICS.filter(m=>it.rating[m[0]]!==undefined&&Number(it.rating[m[0]])!==0).map(m=>({label:m[1],rate:Number(it.rating[m[0]])})).sort((a,b)=>Math.abs(b.rate)-Math.abs(a.rate));}
+function step4(it){const f=flags(it),s=scoreOf(it,'rating'),t=scoreOf(it,'timing'),sg=suggestion(it),rs=reasons(it);return '<h2>05 · 检查结论，自己拍板</h2><p class="muted tiny">推荐只提供参考，最后是买、候补还是不买，由你决定。</p>'+
+'<div class="resultBox"><div class="spread"><div><div class="smallcaps">RECOMMENDATION</div><div style="font-size:23px;font-weight:800">'+sg.label+'</div><div class="tiny muted">'+e(sg.reason)+'</div></div><div class="resultNum">'+(sg.value===null?'—':sg.value)+'<span class="tiny"> /100</span></div></div><div class="line"></div><div class="row"><span class="chip purple">喜好 '+(s.complete?s.value:'未完成')+'</span><span class="chip purple">时机 '+(t.covered?t.value+' · 覆盖'+t.covered+'%':'未评价')+'</span></div></div>'+
+(f.veto.length?'<div class="alert error">一票否决：'+e(f.veto.join('；'))+'</div>':'')+
+(f.warning.length?'<div class="alert">待检查：'+e(f.warning.join('；'))+'</div>':'')+
+'<div class="card" style="padding:17px;margin-top:14px"><h3>加减分依据</h3>'+(rs.length?'<ul class="summary-list">'+rs.map(r=>'<li>'+ (r.rate>0?'💗':'📝')+' '+e(r.label)+'：'+(r.rate>0?'加分':'减分')+'（'+(r.rate>0?'+':'')+r.rate+'级）</li>').join('')+'</ul>':'<p class="muted tiny">还没有评价项目。</p>')+'</div>'+
+boolChoice(it,'desire','现在到底多想听？（独立于分数）',[['high','特别想听'],['medium','比较想听'],['low','有点兴趣'],['unknown','没想好']])+
+textField(it,'最后的判断或备注','notes','为什么选它？或为什么先留在收藏夹？',{textarea:true})+
+'<div class="spread"><button class="btn primary" data-action="finish" data-value="candidate">♡ 加入候选</button><button class="btn" data-action="finish" data-value="hold">📌 暂存以后再看</button><button class="btn danger" data-action="finish" data-value="skip">跳过这部</button></div>';}
+const STEPS=[['初筛','BK / 价格'],['详情','剧情 / 排雷'],['试听','声线 / 演技'],['打分','喜好 / 时机'],['结论','人工决定']];
+function wizard(){const it=entry();if(!it){setTab('home');return;}const steps=[step0,step1,step2,step3,step4];const f=flags(it);
+let content=hero('为这部作品做一次认真选择','当前正在评估：'+e(it.title||'未命名作品')+' · 跟着步骤完成后，再加入候选清单。','💿')+
+'<div class="spread"><span class="tiny muted">第 '+(db.step+1)+' / 5 步</span><button class="btn small" data-tab="library">返回作品库</button></div>'+
+'<div class="stepper">'+STEPS.map((x,i)=>'<div class="step '+(i===db.step?'active':i<db.step?'done':'')+'">'+x[0]+'<br><span style="font-size:10px">'+x[1]+'</span></div>').join('')+'</div>'+
+'<div class="wizard"><section class="card">'+steps[db.step](it)+
+'<div class="actions"><button class="btn" data-action="prev" '+(db.step===0?'disabled':'')+'>← 上一步</button><div class="row">'+(db.step<4?'<button class="btn purple" data-action="next">下一步 →</button>':'<button class="btn" data-tab="cart">查看二筛清单 →</button>')+'</div></div></section>'+
+'<aside class="guide"><div class="card"><div class="smallcaps">STEP GUIDE</div><h3>'+['第一印象','排查剧情和时长','认真试听','按喜好打分','做出自己的决定'][db.step]+'</h3><div class="hint">'+[
+'先根据价格、封面、CV和标题决定是否值得花时间细看。',
+'看详情简介、关键情节和音轨结构。雷点、时长门槛优先检查。',
+'分别听日常与亲密部分。棒读或不喜欢的声音可以直接淘汰。',
+'不需要猜测。喜欢的加分，遗憾的扣分；不知道就空着。',
+'所有评分是建议。预算有限时，在二筛页比较候选作品。'
+][db.step]+'</div><div class="line"></div><div class="smallcaps">当前检查状态</div>'+
+(f.veto.length?'<div class="alert error">'+e(f.veto.join('；'))+'</div>':'<div class="alert ok">暂无触发的一票否决条件</div>')+
+'<div class="tiny muted">'+f.warning.length+' 项待确认或价格提醒</div><button class="btn small" style="margin-top:13px;width:100%" data-action="holdNow">稍后继续填写</button></div></aside></div>';
+wrap(content);document.getElementById('mobileActions').innerHTML='<div class="row"><button class="btn" data-action="prev" '+(db.step===0?'disabled':'')+'>← 上一步</button><button class="btn primary" data-action="'+(db.step<4?'next':'finish')+'" '+(db.step===4?'data-value="candidate"':'')+'>'+(db.step<4?'下一步 →':'加入候选 ♡')+'</button></div>';}
+function rank(a,b){const A=suggestion(a),B=suggestion(b);return (B.value===null?-1:B.value)-(A.value===null?-1)||({high:3,medium:2,low:1,unknown:0}[b.desire]-{high:3,medium:2,low:1,unknown:0}[a.desire]);}
+function cart(){const candidates=db.entries.filter(x=>x.status==='candidate'||x.selected).sort(rank);const selected=db.entries.filter(x=>x.selected);const spent=selected.reduce((a,b)=>a+n(b.price),0);const over=spent>db.profile.budget||selected.length>db.profile.limit;
+wrap(hero('购物车二筛 · 名额有限，心动优先','这次预算 '+yuan(db.profile.budget)+'，最多 '+db.profile.limit+' 部。分数排序仅供参考，逐部手动决定是否放进本次清单。','🛒')+stats()+
+'<div class="card"><div class="spread"><div><div class="smallcaps">SHOPPING BUDGET</div><div class="budgetnum">'+yuan(spent)+' <span class="muted tiny">/ '+yuan(db.profile.budget)+'</span></div><div class="tiny muted">'+selected.length+' / '+db.profile.limit+' 部已选择</div></div><button class="btn small" data-tab="settings">调整预算</button></div><div class="meter"><span style="width:'+Math.min(100,db.profile.budget>0?spent/db.profile.budget*100:100)+'%"></span></div>'+
+(over?'<div class="alert error">本次选购已超出设置的预算或件数，请调整清单。</div>':'<div class="alert ok">剩余 '+yuan(Math.max(0,db.profile.budget-spent))+'，剩余 '+Math.max(0,db.profile.limit-selected.length)+' 个名额。</div>')+'</div>'+
+'<div class="spread"><h2>候选排名</h2><span class="muted tiny">已评分作品按综合参考分排序；可手动覆盖</span></div>'+
+(candidates.length?'<div class="list">'+candidates.map((it,i)=>{const sg=suggestion(it),sc=scoreOf(it,'rating');return '<div class="item"><div class="item-main"><div class="smallcaps">RANK '+String(i+1).padStart(2,'0')+' · '+(it.desire==='high'?'特别想听':it.desire==='medium'?'比较想听':it.desire==='low'?'有点兴趣':'期待程度未填')+'</div><div class="item-title">'+e(it.title||it.rj||'未命名作品')+'</div><div class="item-meta">'+(it.price!==''?yuan(it.price):'价格未知')+' · 喜好分 '+(sc.complete?sc.value:'待评分')+' · <span class="chip '+sg.klass+'">'+sg.label+'</span></div></div><div class="row"><button class="btn small" data-action="edit" data-id="'+it.id+'">查看</button><button class="btn small '+(it.selected?'purple':'primary')+'" data-action="toggleBuy" data-id="'+it.id+'">'+(it.selected?'✓ 已选':'＋ 本次买')+'</button></div></div>';}).join('')+'</div>':'<div class="card empty"><div class="emoji">🧺</div><h3>购物车还是空的</h3><p>先完成作品评估，点击「加入候选」，再来比较。</p><button class="btn primary" data-action="new">开始评估</button></div>')+
+'<div class="card" style="margin-top:16px"><h2>本次拟购清单</h2>'+(selected.length?'<ol class="summary-list">'+selected.map(it=>'<li>'+e(it.title||it.rj||'未命名')+' · '+(it.price!==''?yuan(it.price):'未填价格')+'</li>').join('')+'</ol><button class="btn small" style="margin-top:14px" data-action="copyList">复制购买清单</button>':'<p class="muted tiny">点击「本次买」后，作品就会出现在这里。</p>')+'</div>');}
+function settings(){const p=db.profile;wrap(hero('偏好设置与数据备份','这是你自己的购买标准。之后换预算、换促销活动，都可以在这里修改。','⚙️')+
+'<div class="grid"><section class="card"><h2>购买习惯</h2>'+
+[['usual','常规单部价格上限（元）'],['exception','喜欢的作品破例上限（元）'],['cheap','觉得很划算的价格（元）'],['minMinutes','最低时长（分钟）'],['maxDiscount','偏好的最高折数（2 = 二折）'],['budget','本次总预算（元）'],['limit','本次最多购买（部）']].map(x=>'<div class="field"><label>'+x[1]+'</label><input type="number" min="0" step="any" data-profile="'+x[0]+'" value="'+e(p[x[0]])+'"></div>').join('')+
+'<p class="tiny muted">这些值会影响提醒和判断，不会自动购买、删除或强制清空已选作品。</p></section>'+
+'<section class="card"><h2>数据只在你的浏览器里</h2><p class="muted tiny">无需登录，也没有外部数据服务。浏览器清缓存、换设备前，请导出备份文件。</p><div class="row"><button class="btn primary" data-action="export">↓ 导出 JSON</button><button class="btn" data-action="import">↑ 导入备份</button><input class="hide" id="importFile" type="file" accept=".json,application/json"></div><div class="line"></div><h3>评分规则 V1.0</h3><p class="tiny muted">喜好分：从50分起算，七个维度按 -2 至 +2 加减。时机分独立计算，已有时机信息时参考总分=喜好×85%+时机×15%。一票否决始终优先。</p><div class="alert">当前模型为第一次测试。评分阈值和权重未来可根据实际购买体验调整。</div><div class="line"></div><button class="btn danger small" data-action="clearAll">清空所有作品和记录</button></section></div>');}
+function render(){if(db.tab==='wizard')wizard();else if(db.tab==='library')library();else if(db.tab==='cart')cart();else if(db.tab==='settings')settings();else home();}
+document.addEventListener('input',ev=>{const t=ev.target,it=entry();if(t.dataset.field&&it){it[t.dataset.field]=t.value;save();}
+if(t.dataset.profile){db.profile[t.dataset.profile]=n(t.value);save();}
+});
+document.addEventListener('change',ev=>{const t=ev.target,it=entry();if(t.dataset.checkfield&&it){it[t.dataset.checkfield]=t.checked;save();}
+if(t.dataset.field||t.dataset.profile)render();
+if(t.id==='importFile'&&t.files[0]){const r=new FileReader();r.onload=function(){try{const x=JSON.parse(r.result);if(!x||!Array.isArray(x.entries)||!x.profile)throw Error('invalid');if(!confirm('导入将替换当前所有作品及设置。确认继续？'))return;db=Object.assign({},JSON.parse(JSON.stringify(DEFAULT)),x,{profile:Object.assign({},DEFAULT.profile,x.profile)});db.tab='home';db.active=null;db.step=0;save();render();}catch(err){alert('备份格式无效，请选择本工具导出的JSON文件。');}};r.readAsText(t.files[0]);}
+});
+document.addEventListener('click',ev=>{const btn=ev.target.closest('button');if(!btn)return;const it=entry(),d=btn.dataset;
+if(d.tab){setTab(d.tab);return;}
+if(d.choice&&it){it[d.choice]=d.value;save();render();return;}
+if(d.rate&&it){it[d.rate][d.metric]=Number(d.value);save();render();return;}
+switch(d.action){
+case 'new':newEntry();break;
+case 'edit':edit(d.id);break;
+case 'delete':removeEntry(d.id);break;
+case 'prev':db.step=Math.max(0,db.step-1);save();render();window.scrollTo({top:0,behavior:'smooth'});break;
+case 'next':db.step=Math.min(4,db.step+1);save();render();window.scrollTo({top:0,behavior:'smooth'});break;
+case 'holdNow':db.tab='library';save();render();break;
+case 'status':{let target=db.entries.find(x=>x.id===d.id);if(target){target.status=d.value;if(d.value!=='candidate')target.selected=false;save();render();}break;}
+case 'finish':if(it){it.status=d.value;if(d.value!=='candidate')it.selected=false;db.tab=d.value==='candidate'?'cart':'library';save();render();window.scrollTo({top:0,behavior:'smooth'});}break;
+case 'toggleBuy':{let target=db.entries.find(x=>x.id===d.id);if(target){target.selected=!target.selected;if(target.selected)target.status='candidate';save();render();}break;}
+case 'export':{const blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='抓抓挑选器备份-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);break;}
+case 'import':document.getElementById('importFile').click();break;
+case 'clearAll':if(confirm('这将删除全部作品评分和购物清单，确定清空？')){db.entries=[];db.active=null;db.tab='home';save();render();}break;
+case 'copyList':{let items=db.entries.filter(x=>x.selected);let text='本次乙抓购物清单\n'+items.map((x,i)=>(i+1)+'. '+(x.title||x.rj||'未命名')+' '+(x.rj||'')+' '+(x.price!==''?yuan(x.price):'待补价')).join('\n')+'\n合计：'+yuan(items.reduce((a,b)=>a+n(b.price),0));if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>alert('已复制清单')).catch(()=>window.prompt('复制清单：',text));}else window.prompt('复制清单：',text);break;}
+}
+});
+render();
+})();
+</script>
+</body>
+</html>
