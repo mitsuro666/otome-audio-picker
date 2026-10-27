@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fcf7f7">
+<title>抓抓挑选器 · 三态快评</title>
+<style>
+:root{--bg:#fcf7f7;--white:#fffefc;--ink:#403241;--muted:#827784;--line:#eddfeb;--pink:#dc7995;--pink-soft:#fff0f4;--purple:#75639e;--green:#317b63;--yellow:#996f2d;--red:#bd526e;--shadow:0 12px 38px rgba(92,62,86,.07)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 0 0,#ffecee,transparent 43%),radial-gradient(circle at 100% 5%,#f2eefe,transparent 31%),var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #a698cc;outline-offset:3px}a{color:var(--purple)}
+.page{max-width:850px;padding:24px 18px 80px;margin:auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:25px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px}.symbol{width:46px;height:46px;display:grid;place-items:center;background:linear-gradient(135deg,#efafc4,#a79aca);color:white;font-size:23px;border-radius:16px}
+.brand strong{display:block;font-size:17px}.brand small{display:block;color:var(--muted);font-size:11px;letter-spacing:.1em}
+.back{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:white;padding:10px 13px;border-radius:12px;text-decoration:none;font-size:13px;font-weight:700}
+.hero,.panel,.result{background:var(--white);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:24px}
+.hero{padding:27px 28px;margin-bottom:18px;background:linear-gradient(115deg,#fffefa,#fff0f4)}
+.eyebrow{color:var(--pink);letter-spacing:.2em;text-transform:uppercase;font-size:11px;font-weight:800}
+.hero h1{font-size:27px;margin:5px 0 7px;line-height:1.35}.hero p{margin:0;color:#786d7a;font-size:14px}
+.info{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}.pill{border-radius:99px;background:white;border:1px solid #f1dfe7;color:#857388;padding:6px 11px;font-size:12px}
+.result{padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.result-sub{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.07em}.result-score{font-size:38px;font-weight:850;color:var(--purple);line-height:1.15;margin-top:4px}.result-score span{font-size:14px;font-weight:500;color:var(--muted)}
+.result-status{font-size:18px;font-weight:800;margin:5px 0 4px}.result-note{font-size:12px;color:var(--muted);max-width:440px}
+.progress{height:8px;background:#f2eaf0;border-radius:99px;overflow:hidden;margin-top:12px;width:200px;max-width:100%}.progress>span{display:block;height:100%;background:linear-gradient(90deg,#b9a8d8,#ec94ae);transition:width .2s}
+.panel{padding:22px 24px;margin-bottom:18px}.panel h2{font-size:18px;margin:0 0 5px}.section-desc{font-size:12px;color:var(--muted);margin:0 0 14px}
+.check-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px;border-top:1px solid #f2eaf0;padding:15px 0}
+.check-label{font-weight:750;font-size:15px}.check-help{color:var(--muted);font-size:12px;margin-top:2px}
+.options{display:flex;gap:7px}.rate{border:1px solid #eadfe6;background:#fff;border-radius:13px;min-width:47px;height:44px;font-size:19px;font-weight:900;transition:background .16s}
+.rate[data-value="1"]{color:var(--green)}.rate[data-value="0"]{color:var(--yellow)}.rate[data-value="-1"]{color:var(--red)}
+.rate[data-value="1"].on{background:#e2f3eb;border-color:#80bea3;box-shadow:inset 0 0 0 1px #80bea3}
+.rate[data-value="0"].on{background:#fff2da;border-color:#dfb967;box-shadow:inset 0 0 0 1px #dfb967}
+.rate[data-value="-1"].on{background:#fde8ef;border-color:#dfa4b3;box-shadow:inset 0 0 0 1px #dfa4b3}
+.rate[aria-pressed="true"]{transform:scale(1.06)}
+.legend{font-size:12px;color:var(--muted);display:flex;gap:13px;flex-wrap:wrap;margin:2px 0 15px}
+.legend strong{color:var(--ink)}.gate{background:#fdf9fc;padding-left:12px;padding-right:12px;border-radius:14px;margin-top:5px;border:1px dashed #e5d6e7}
+.alert{padding:13px 15px;border-radius:14px;margin-top:12px;background:#fff5e4;color:#8c632b;font-size:13px}
+.alert.bad{background:#fcebf1;color:#a74765}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.action{border-radius:13px;padding:12px 18px;border:1px solid #e3d4e0;background:white;color:var(--ink);font-weight:700}.action.primary{background:var(--purple);color:white;border-color:var(--purple)}
+.action:disabled{opacity:.4;cursor:not-allowed}
+.footer{text-align:center;color:#9a8b96;font-size:12px;margin-top:26px}
+@media(max-width:620px){.page{padding:14px 13px 66px}.top{margin-bottom:15px}.hero{padding:22px 20px}.hero h1{font-size:23px}.panel{padding:17px 16px}.result{padding:17px 19px}.check-row{gap:8px}.check-label{font-size:14px}.check-help{font-size:11px}.options{gap:4px}.rate{min-width:36px;width:39px;height:39px;font-size:17px}.progress{width:140px}}
+@media(max-width:360px){.check-row{grid-template-columns:1fr;gap:7px}.options{justify-content:flex-start}.rate{min-width:46px}}
+</style>
+</head>
+<body>
+<main class="page">
+ <header class="top">
+  <div class="brand"><div class="symbol">♫</div><div><strong>抓抓挑选器</strong><small>THREE-CHOICE QUICK CHECK</small></div></div>
+  <a href="./index.html" class="back">← 返回原版</a>
+ </header>
+ <section class="hero">
+  <div class="eyebrow">QUICK CHECK · 实验版</div>
+  <h1>这部乙抓，值得买吗？🎧</h1>
+  <p>不用填资料，不用记流程。看着作品介绍和试听，逐行选 ✅ 满意、△ 一般或 ❌ 不喜欢，系统帮你算分。</p>
+  <div class="info"><span class="pill">离线可用</span><span class="pill">单页快速评价</span><span class="pill">点已选选项可取消</span></div>
+ </section>
+ <section class="result" id="result" aria-live="polite"></section>
+ <div id="checklist"></div>
+ <section class="panel" id="finalPanel">
+  <h2>这次的判断</h2>
+  <p class="section-desc">已评价的项目即时计分；全部答完后给出正式建议。雷点与声音底线优先于分数。</p>
+  <div id="summary"></div>
+  <div class="actions">
+    <button class="action primary" id="copyBtn" type="button">复制评价结果</button>
+    <button class="action" id="resetBtn" type="button">重新评估一部 ↻</button>
+  </div>
+ </section>
+ <footer class="footer">此页为独立试验分支，评分在本机暂存，不影响原版候选库。最终购买由你决定。</footer>
+</main>
+<script>
+(function(){
+'use strict';
+const KEY='otome-audio-picker-quickcheck-v1';
+const groups=[
+ {title:'01 · 第一眼',description:'先看看价格、封面和声优，有没有让你心动。',items:[
+  {id:'price',label:'价格与折扣',help:'现在买划算吗？',weight:10},
+  {id:'art',label:'BK / 标题',help:'视觉与第一印象喜不喜欢？',weight:5},
+  {id:'cv',label:'CV',help:'喜欢这位声优或这次的选角吗？',weight:10}
+ ]},
+ {title:'02 · 剧情与内容',description:'根据商品页提供的简介、题材和时长直接判断。',items:[
+  {id:'genre',label:'剧情题材',help:'题材、故事方向是否感兴趣？',weight:15},
+  {id:'character',label:'男主人设',help:'性格、关系模式和角色设定怎么样？',weight:15},
+  {id:'duration',label:'作品时长',help:'❌ 代表低于你自己的时长底线。',weight:5,veto:true},
+  {id:'content',label:'内容与音轨结构',help:'想听的情节是否有足够分量？',weight:5},
+  {id:'redflag',label:'绝对雷点',help:'✅ 无雷点　△ 待确认　❌ 命中雷点',weight:0,veto:true,gate:true}
+ ]},
+ {title:'03 · 试听感受',description:'听一下日常和亲密部分，声音不合口味可以直接否决。',items:[
+  {id:'daily',label:'日常声线与演技',help:'自然吗？有没有棒读？❌ 代表不接受。',weight:15,veto:true},
+  {id:'intimate',label:'亲密演绎',help:'声线、节奏和表现喜欢吗？❌ 代表不接受。',weight:15,veto:true},
+  {id:'production',label:'录音与音效',help:'收音、SE和沉浸感如何？',weight:5}
+ ]}
+];
+const all=groups.flatMap(g=>g.items);
+let answers={};
+try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved&&typeof saved==='object')for(const q of all)if([-1,0,1].includes(saved[q.id]))answers[q.id]=saved[q.id]}catch(_){}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(answers))}catch(_){}}
+function tally(a){
+ const rated=all.filter(q=>a[q.id]!==undefined);
+ const scored=rated.filter(q=>q.weight>0);
+ const covered=scored.reduce((n,q)=>n+q.weight,0);
+ const total=scored.reduce((n,q)=>n+q.weight*(a[q.id]+1)/2,0);
+ const score=covered?Math.round(100*total/covered):null;
+ const vetoes=all.filter(q=>q.veto&&a[q.id]===-1);
+ const unknownRed=a.redflag===0;
+ const complete=rated.length===all.length;
+ let headline='继续勾选',detail='勾完所有项目，就能生成购买建议。';
+ if(vetoes.length){headline='不推荐购入';detail='触发一票否决：'+vetoes.map(q=>q.label).join('、')+'。';}
+ else if(unknownRed){headline='需要确认雷点';detail='雷点仍待确认，可先保留为候选。';}
+ else if(complete&&score!==null){
+  if(score>=80){headline='优先考虑购入 💗';detail='综合吸引力较高，可以进入最终候选。';}
+  else if(score>=65){headline='值得放进候选';detail='整体符合喜好，适合与其他作品比较。';}
+  else if(score>=50){headline='建议放入待定';detail='有吸引力也有遗憾，留待预算二筛。';}
+  else {headline='暂缓购买';detail='综合吸引力偏低，可以先留在收藏夹。';}
+ }
+ return {rated,covered,score,vetoes,unknownRed,complete,headline,detail};
+}
+function esc(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+const list=document.getElementById('checklist'),result=document.getElementById('result'),summary=document.getElementById('summary');
+function renderChecklist(){
+ list.innerHTML=groups.map(group=>
+ '<section class="panel"><h2>'+esc(group.title)+'</h2><p class="section-desc">'+esc(group.description)+'</p>'+
+ '<div class="legend"><span><strong>✓</strong> 满意</span><span><strong>△</strong> 一般 / 可接受</span><span><strong>✕</strong> 不喜欢</span></div>'+
+ group.items.map(q=>
+ '<div class="check-row'+(q.gate?' gate':'')+'"><div><div class="check-label">'+esc(q.label)+'</div><div class="check-help">'+esc(q.help)+'</div></div>'+
+ '<div class="options" role="group" aria-label="'+esc(q.label)+'">'+
+ [[1,'✓','满意'],[0,'△','一般'],[-1,'✕','不喜欢']].map(([v,icon,name])=>
+ '<button type="button" class="rate'+(answers[q.id]===v?' on':'')+'" data-id="'+q.id+'" data-value="'+v+'" aria-pressed="'+(answers[q.id]===v)+'" aria-label="'+esc(q.label)+'：'+(q.gate?({1:'无雷点',0:'待确认',[-1]:'有雷点'}[v]):name)+'">'+icon+'</button>'
+ ).join('')+'</div></div>').join('')+'</section>').join('');
+}
+function renderResult(){
+ const t=tally(answers);
+ result.innerHTML='<div><div class="result-sub">当前评价 · '+t.rated.length+' / '+all.length+' 项</div>'+
+ '<div class="result-score">'+(t.score===null?'—':t.score)+'<span> / 100'+(t.complete?'':' · 临时分')+'</span></div>'+
+ '<div class="progress" role="progressbar" aria-label="评价进度" aria-valuenow="'+t.rated.length+'" aria-valuemin="0" aria-valuemax="'+all.length+'"><span style="width:'+(t.rated.length/all.length*100)+'%"></span></div></div>'+
+ '<div><div class="result-status">'+esc(t.headline)+'</div><div class="result-note">'+esc(t.detail)+'</div></div>';
+ const positives=t.rated.filter(q=>answers[q.id]===1).map(q=>q.label);
+ const negatives=t.rated.filter(q=>answers[q.id]===-1).map(q=>q.label);
+ summary.innerHTML='<p class="section-desc">✅ 满意 '+positives.length+' 项　△ 一般 '+t.rated.filter(q=>answers[q.id]===0).length+' 项　❌ 不喜欢 '+negatives.length+' 项</p>'+
+ (t.vetoes.length?'<div class="alert bad">一票否决：'+esc(t.vetoes.map(q=>q.label).join('、'))+'</div>':'')+
+ (t.unknownRed?'<div class="alert">绝对雷点还没确认，购买前建议再核对。</div>':'')+
+ (!t.complete?'<div class="alert">还有 '+(all.length-t.rated.length)+' 项未评价；目前分数只根据已选项目计算。</div>':'')+
+ '<p class="section-desc">评价规则：✓ 计该项全部权重、△ 计一半、✕ 计零。时长、日常声线、亲密演绎和绝对雷点的 ✕ 为一票否决。</p>';
+}
+function render(){renderChecklist();renderResult();}
+list.addEventListener('click',event=>{
+ const btn=event.target.closest('button[data-id]');if(!btn)return;
+ const id=btn.dataset.id,value=Number(btn.dataset.value);
+ if(!all.some(q=>q.id===id)||![-1,0,1].includes(value))return;
+ if(answers[id]===value)delete answers[id];else answers[id]=value;
+ persist();render();
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+ if(Object.keys(answers).length&&!confirm('清空本次打勾结果，重新评价下一部作品吗？'))return;
+ answers={};persist();render();window.scrollTo({top:0,behavior:'smooth'});
+});
+document.getElementById('copyBtn').addEventListener('click',async()=>{
+ const t=tally(answers);
+ const texts=['抓抓挑选器 · 三态快评','评分：'+(t.score===null?'尚未评价':t.score+'/100')+(t.complete?'':'（未完成）'),'建议：'+t.headline,t.detail,...all.map(q=>q.label+'：'+(answers[q.id]===1?'✅ 满意':answers[q.id]===0?'△ 一般':answers[q.id]===-1?'❌ 不喜欢':'未评'))].join('\n');
+ try{if(!navigator.clipboard||!navigator.clipboard.writeText)throw Error('clipboard unavailable');await navigator.clipboard.writeText(texts);const btn=document.getElementById('copyBtn');btn.textContent='✓ 已复制';setTimeout(()=>btn.textContent='复制评价结果',1400)}catch(_){window.prompt('复制评价结果：',texts)}
+});
+render();
+})();
+</script>
+</body>
+</html>
